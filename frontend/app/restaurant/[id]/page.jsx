@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function RestaurantPage() {
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000'
   const params = useParams()
   const router = useRouter()
   const restaurantId = params.id
@@ -29,7 +30,7 @@ export default function RestaurantPage() {
 
   const fetchRestaurantDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/restaurants`)
+      const response = await fetch(`${API_BASE}/restaurants`)
       if (!response.ok) throw new Error('Failed to fetch restaurant')
       const restaurants = await response.json()
       const found = restaurants.find((r) => r.id === parseInt(restaurantId))
@@ -44,7 +45,7 @@ export default function RestaurantPage() {
 
   const fetchMenu = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/restaurants/${restaurantId}/menu`)
+      const response = await fetch(`${API_BASE}/restaurants/${restaurantId}/menu`)
       if (!response.ok) throw new Error('Failed to fetch menu')
       const data = await response.json()
       setMenu(data)
@@ -106,7 +107,7 @@ export default function RestaurantPage() {
         price: item.menuItem.price
       }))
 
-      const response = await fetch('http://localhost:8000/order', {
+      const response = await fetch(`${API_BASE}/order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

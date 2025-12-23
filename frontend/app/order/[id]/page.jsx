@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 
 export default function OrderPage() {
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000'
   const params = useParams()
   const orderId = params.id
   const [orderStatus, setOrderStatus] = useState(null)
@@ -34,7 +35,7 @@ export default function OrderPage() {
 
   const fetchOrderStatus = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/order/${orderId}`, {
+      const response = await fetch(`${API_BASE}/order/${orderId}`, {
         headers: {
           'x-auth-token': token || ''
         }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function Home() {
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000'
   const router = useRouter()
   const [restaurants, setRestaurants] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
@@ -43,7 +44,7 @@ export default function Home() {
   const fetchRestaurants = async () => {
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:8000/restaurants')
+      const response = await fetch(`${API_BASE}/restaurants`)
       if (!response.ok) {
         throw new Error('Failed to fetch restaurants')
       }
