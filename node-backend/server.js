@@ -7,7 +7,7 @@ const Order = require('./models/Order')
 
 const app = express()
 const PORT = process.env.PORT || 4000
-const PYTHON_SERVICE_URL = 'http://localhost:6000'
+const PYTHON_SERVICE_URL = process.env.PYTHON_SERVICE_URL || 'http://localhost:6000'
 const AUTH_USERNAME = process.env.AUTH_USERNAME || 'demo'
 const AUTH_PASSWORD = process.env.AUTH_PASSWORD || 'password123'
 const AUTH_TOKEN = process.env.AUTH_TOKEN || 'demo-token'
